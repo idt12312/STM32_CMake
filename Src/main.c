@@ -40,6 +40,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "arm_math.h"
+#include "test_library.h"
+#include "test_cpp.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -109,6 +112,14 @@ int main(void)
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
 
+  int result;
+  result = test_library_add(1,2);  // result muset be 3
+  result = test_cpp_sum();  // result muset be 15
+  (void)result;
+
+  arm_rfft_fast_instance_f32 fftInstance;
+  arm_rfft_fast_init_f32(&fftInstance, 128);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -118,6 +129,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
+    HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
