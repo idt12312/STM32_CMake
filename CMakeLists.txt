@@ -1,15 +1,13 @@
-cmake_minimum_required(VERSION 3.1.0)
+cmake_minimum_required(VERSION 3.0.2)
 
 project(stm32_cmake)
 
 enable_language(ASM)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g3 -Wall -Wextra")
 set(CMAKE_C_FLAGS_DEBUG "-O0 -DDEBUG")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g3 -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-O0 -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2")
 

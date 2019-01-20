@@ -13,6 +13,7 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 unset(CMAKE_C_FLAGS CACHE)
 set(CMAKE_C_FLAGS "-mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 \
                     -fsingle-precision-constant -ffunction-sections -fdata-sections -mslow-flash-data \
+                    -g3 -Wall -Wextra \
                     -DSTM32F407xx -DUSE_HAL_DRIVER -DARM_MATH_CM4 " CACHE STRING "" FORCE)
 
 
