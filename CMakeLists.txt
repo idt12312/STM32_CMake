@@ -1,15 +1,8 @@
 cmake_minimum_required(VERSION 3.0.2)
 
 project(stm32_cmake)
-
 enable_language(ASM)
-
-set(CMAKE_C_FLAGS_DEBUG "-O0 -DDEBUG")
-set(CMAKE_C_FLAGS_RELEASE "-O2")
-
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_FLAGS_DEBUG "-O0 -DDEBUG")
-set(CMAKE_CXX_FLAGS_RELEASE "-O2")
 
 
 add_subdirectory(Drivers/STM32F4xx_HAL_Driver)
@@ -33,16 +26,16 @@ file(GLOB SRCS
 link_directories(${CMAKE_SOURCE_DIR}/Drivers/CMSIS/Lib/GCC)
 
 
-set(EXECTABLE_NAME ${CMAKE_PROJECT_NAME}.elf)
-add_executable(${EXECTABLE_NAME} ${SRCS})
+set(EXECTABLE_NAME ${CMAKE_PROJECT_NAME})
+add_executable(${EXECTABLE_NAME}.elf ${SRCS})
 
-
-target_link_libraries(${EXECTABLE_NAME}
+target_link_libraries(${EXECTABLE_NAME}.elf
 		hal
 		testlibrary
 		libarm_cortexM4lf_math.a)
 		
 
 # display the size of the output binary after a build is finished
-add_custom_command(TARGET ${EXECTABLE_NAME} POST_BUILD
-    COMMAND arm-none-eabi-size --format=berkeley "${EXECTABLE_NAME}")
+add_custom_command(TARGET ${EXECTABLE_NAME}.elf POST_BUILD COMMAND ${CMAKE_SIZE} --format=berkeley ${EXECTABLE_NAME}.elf)
+add_custom_target(${EXECTABLE_NAME}.hex ALL DEPENDS ${EXECTABLE_NAME}.elf COMMAND ${CMAKE_OBJCOPY} -Oihex ${EXECTABLE_NAME}.elf ${EXECTABLE_NAME}.hex)
+add_custom_target(${EXECTABLE_NAME}.bin ALL DEPENDS ${EXECTABLE_NAME}.elf COMMAND ${CMAKE_OBJCOPY} -Obinary ${EXECTABLE_NAME}.elf ${EXECTABLE_NAME}.bin)
